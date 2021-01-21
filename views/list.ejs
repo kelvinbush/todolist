@@ -8,7 +8,11 @@
     <title>To Do List</title>
 </head>
 <body>
-<h1>It's a <%= today %>!</h1>
+<% if (today === "Saturday" || today === "Sunday") { %>
+    <h1 style="color: purple"><%= today %> To do list</h1>
+<% } else { %>
+    <h1 style="color: blue"><%= today %> To do list</h1>
+<% } %>
 <p>Why are you not working</p>
 </body>
 </html>
