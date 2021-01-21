@@ -8,11 +8,17 @@
     <title>To Do List</title>
 </head>
 <body>
-<% if (today === "Saturday" || today === "Sunday") { %>
-    <h1 style="color: purple"><%= today %> To do list</h1>
-<% } else { %>
-    <h1 style="color: blue"><%= today %> To do list</h1>
-<% } %>
-<p>Why are you not working</p>
+<h1>
+    <%= today %>
+</h1>
+<ul>
+    <% for (let i = 0; i < newListItems.length; i++){ %>
+        <li><%= newListItems[i] %></li>
+    <% } %>
+</ul>
+<form action="/" method="post">
+    <input type="text" name="newItem">
+    <button type="submit" name="button">Add</button>
+</form>
 </body>
 </html>
