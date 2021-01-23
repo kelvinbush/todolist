@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const date = require(__dirname + "/date.js");
+const _ = require("lodash");
 
 
 const app = express();
@@ -62,7 +63,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:customListName", (req, res) => {
-    const customListName = req.params.customListName;
+    const customListName = _.capitalize(req.params.customListName);
     List.findOne({name: customListName}, (err, list) => {
             if (!err) {
                 if (!list) {
@@ -117,7 +118,7 @@ app.post("/delete", (req, res) => {
         res.redirect('/');
     } else {
         List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedItemId}}}, (err, list) => {
-            if(!err){
+            if (!err) {
                 res.redirect("/" + listName);
             }
         });
