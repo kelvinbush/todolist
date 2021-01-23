@@ -5,8 +5,7 @@ const date = require(__dirname + "/date.js");
 
 const app = express();
 
-const items = ["Buy Food", "Cook Food", "Eat Food"];
-const workItems = [];
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
