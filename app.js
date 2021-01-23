@@ -61,8 +61,10 @@ app.post("/", (req, res) => {
     });
     nItem.save();
     res.redirect('/');
+});
 
-
+app.post("/delete", (req, res) => {
+    console.log(req.body);
 });
 
 app.get("/about", (req, res) => {
