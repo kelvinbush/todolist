@@ -13,7 +13,7 @@ app.use('*/css', express.static('public/css'));
 
 
 //connect to db
-mongoose.connect("mongodb+srv://admin-kelvin:test123@cluster0.iinbt.mongodb.net/todolistDB?retryWrites=true&w=majority", {
+mongoose.connect(, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
