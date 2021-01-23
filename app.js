@@ -1,9 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
 const date = require(__dirname + "/date.js");
 
 
 const app = express();
+
+
+//connect ot db
+mongoose.connect("mongodb://localhost:27027/todolistDB", {useUnifiedTopology: true, useNewUrlParser: true});
 
 
 
