@@ -6,9 +6,13 @@ const date = require(__dirname + "/date.js");
 
 const app = express();
 
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use('*/css', express.static('public/css'));
 
-//connect ot db
-mongoose.connect("mongodb://localhost:27027/todolistDB", {useUnifiedTopology: true, useNewUrlParser: true});
+
+//connect to db
+mongoose.connect("mongodb://localhost:27017/todolistDB", {useUnifiedTopology: true, useNewUrlParser: true});
 
 //create item schema
 const itemSchema = {
@@ -18,13 +22,32 @@ const itemSchema = {
 
 const Item = mongoose.model("item", itemSchema);
 
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
-app.use('*/css', express.static('public/css'));
+const item1 = new Item({
+    name: "Welcome to your to do list"
+});
+
+const item2 = new Item({
+    name: "Hit the + button to add new item"
+});
+
+const item3 = new Item({
+    name: "<-- Hit this to delete an item"
+});
+
+const defaultItems = [item1, item2, item3];
+
+Item.insertMany(defaultItems, err => {
+    if (err) console.log(err);
+    else console.log("Success");
+});
+
 
 app.get("/", (req, res) => {
+    Item.find({}, (err, items) => {
+        res.render('list', {listTitle: "Today", newListItems: items});
+    })
 
-    res.render('list', {listTitle: date.getDate(), newListItems: items});
+
 });
 
 app.post("/", (req, res) => {
