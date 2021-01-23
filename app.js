@@ -10,7 +10,13 @@ const app = express();
 //connect ot db
 mongoose.connect("mongodb://localhost:27027/todolistDB", {useUnifiedTopology: true, useNewUrlParser: true});
 
+//create item schema
+const itemSchema = {
+    name: String
+};
 
+
+const Item = mongoose.model("item", itemSchema);
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
