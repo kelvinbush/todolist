@@ -35,6 +35,10 @@ const item3 = new Item({
 });
 
 const defaultItems = [item1, item2, item3];
+const listSchema = {
+    name: String,
+    items: [itemSchema]
+}
 
 
 app.get("/", (req, res) => {
@@ -53,6 +57,10 @@ app.get("/", (req, res) => {
 
 
 });
+
+app.get("/:customListName", (req, res) => {
+    const customListName = req.params.customListName;
+})
 
 app.post("/", (req, res) => {
     const itemName = req.body.newItem;
