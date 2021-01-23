@@ -1,3 +1,4 @@
+//use esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
@@ -94,7 +95,7 @@ app.post("/", (req, res) => {
         res.redirect('/');
     } else {
         List.findOne({name: listName}, (err, list) => {
-            if(!err){
+            if (!err) {
                 list.items.push(nItem);
                 list.save();
                 res.redirect("/" + listName);
@@ -106,11 +107,22 @@ app.post("/", (req, res) => {
 
 app.post("/delete", (req, res) => {
     const checkedItemId = req.body.checkbox;
-    Item.findByIdAndRemove(checkedItemId, err => {
-        if (err) console.log(err);
-        else console.log("Successfully deleted!");
-    });
-    res.redirect('/');
+    const listName = req.body.listName;
+
+    if (listName === "Today") {
+        Item.findByIdAndRemove(checkedItemId, err => {
+            if (err) console.log(err);
+            else console.log("Successfully deleted!");
+        });
+        res.redirect('/');
+    } else {
+        List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedItemId}}}, (err, list) => {
+            if(!err){
+                res.redirect("/" + listName);
+            }
+        });
+    }
+
 });
 
 app.get("/about", (req, res) => {
