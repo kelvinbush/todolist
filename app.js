@@ -37,7 +37,6 @@ const item3 = new Item({
 const defaultItems = [item1, item2, item3];
 
 
-
 app.get("/", (req, res) => {
     Item.find({}, (err, items) => {
         if (items.length === 0) {
@@ -57,6 +56,11 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
     const itemName = req.body.newItem;
+    const nItem = Item({
+        name: itemName
+    });
+    nItem.save();
+    res.redirect('/');
 
 
 });
