@@ -1,4 +1,3 @@
-//use esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
@@ -14,7 +13,10 @@ app.use('*/css', express.static('public/css'));
 
 
 //connect to db
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect("mongodb+srv://admin-kelvin:test123@cluster0.iinbt.mongodb.net/todolistDB?retryWrites=true&w=majority", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+});
 
 //create item schema
 const itemSchema = {
